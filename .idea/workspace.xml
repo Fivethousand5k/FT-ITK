@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="Slices_Viewer_Widget completed!" />
+    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="Slices_Viewer_Widget completed!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slices_Viewer_Widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slices_Viewer_Widget.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Readme-images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WHU-CSTECH22222" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -92,6 +96,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="demoo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FT-ITK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demoo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -166,6 +191,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Slices_Viewer_Widget" />
+        <item itemvalue="Python.demoo" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.tools" />
         <item itemvalue="Python.load_np" />
@@ -191,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616834207035</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Slices_Viewer_Widget completed!">
+      <created>1616834654430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616834654430</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,75 +247,92 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616161131970" />
-    <state x="396" y="82" key="#xdebugger.evaluate" timestamp="1616733613494">
+    <state x="396" y="82" key="#xdebugger.evaluate" timestamp="1616847879732">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
-    <state x="396" y="82" key="#xdebugger.evaluate/0.0.1280.760@0.0.1280.760" timestamp="1616733613494" />
-    <state x="421" y="135" key="FileChooserDialogImpl" timestamp="1616728304542">
+    <state x="396" y="82" key="#xdebugger.evaluate/0.0.1280.760@0.0.1280.760" timestamp="1616847879732" />
+    <state x="421" y="135" key="FileChooserDialogImpl" timestamp="1616835922555">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state x="421" y="135" key="FileChooserDialogImpl/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616728304542" />
-    <state width="630" height="190" key="GridCell.Tab.0.bottom" timestamp="1616831345310">
+    <state x="421" y="135" key="FileChooserDialogImpl/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616835922555" />
+    <state width="630" height="177" key="GridCell.Tab.0.bottom" timestamp="1616852344184">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.0.bottom/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.bottom/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345310" />
-    <state width="630" height="190" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616751422477" />
+    <state width="630" height="177" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
     <state width="931" height="269" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616161403001" />
-    <state width="630" height="190" key="GridCell.Tab.0.center" timestamp="1616831345309">
+    <state width="630" height="177" key="GridCell.Tab.0.center" timestamp="1616852344184">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.0.center/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.center/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345309" />
-    <state width="630" height="190" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1616751422476" />
+    <state width="630" height="177" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
     <state width="931" height="269" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616161403001" />
-    <state width="630" height="190" key="GridCell.Tab.0.left" timestamp="1616831345309">
+    <state width="630" height="177" key="GridCell.Tab.0.left" timestamp="1616852344184">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.0.left/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.left/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345309" />
-    <state width="630" height="190" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1616751422476" />
+    <state width="630" height="177" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
     <state width="931" height="269" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616161403001" />
-    <state width="630" height="190" key="GridCell.Tab.0.right" timestamp="1616831345310">
+    <state width="630" height="177" key="GridCell.Tab.0.right" timestamp="1616852344184">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.0.right/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.right/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345310" />
-    <state width="630" height="190" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1616751422477" />
+    <state width="630" height="177" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
     <state width="931" height="269" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616161403001" />
-    <state width="630" height="282" key="GridCell.Tab.1.bottom" timestamp="1616751357217">
+    <state width="630" height="282" key="GridCell.Tab.1.bottom" timestamp="1616849181771">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.1.bottom/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.bottom/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616751357217" />
-    <state width="630" height="282" key="GridCell.Tab.1.center" timestamp="1616751357217">
+    <state width="630" height="282" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="630" height="282" key="GridCell.Tab.1.center" timestamp="1616849181771">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.1.center/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.center/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1616751357217" />
-    <state width="630" height="282" key="GridCell.Tab.1.left" timestamp="1616751357217">
+    <state width="630" height="282" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="630" height="282" key="GridCell.Tab.1.left" timestamp="1616849181771">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.1.left/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.left/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1616751357217" />
-    <state width="630" height="282" key="GridCell.Tab.1.right" timestamp="1616751357217">
+    <state width="630" height="282" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="630" height="282" key="GridCell.Tab.1.right" timestamp="1616849181771">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state width="1260" height="236" key="GridCell.Tab.1.right/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.right/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1616751357217" />
+    <state width="630" height="282" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
     <state x="230" y="51" key="SettingsEditor" timestamp="1616749437094">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
     <state x="230" y="51" key="SettingsEditor/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616727439303" />
     <state x="230" y="51" key="SettingsEditor/0.0.1280.760@0.0.1280.760" timestamp="1616749437094" />
     <state x="345" y="78" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1616161078022" />
-    <state x="233" y="100" key="Vcs.Push.Dialog.v2" timestamp="1616834421224">
+    <state x="233" y="100" key="Vcs.Push.Dialog.v2" timestamp="1616834659338">
       <screen x="0" y="0" width="1280" height="760" />
     </state>
-    <state x="233" y="100" key="Vcs.Push.Dialog.v2/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616834421224" />
+    <state x="233" y="100" key="Vcs.Push.Dialog.v2/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616834659338" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Slices_Viewer_Widget.py</url>
+          <line>101</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Slices_Viewer_Widget.py</url>
+          <line>111</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

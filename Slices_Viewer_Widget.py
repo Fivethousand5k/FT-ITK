@@ -1,7 +1,7 @@
 import cv2
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QSize, Qt, QTimer
-from PyQt5.QtGui import QIcon, QPalette, QFont, QPixmap, QImage, QWheelEvent
+from PyQt5.QtGui import QIcon, QPalette, QFont, QPixmap, QImage, QWheelEvent, QPainter, QPen
 from PyQt5.QtWidgets import QWidget, QSizePolicy
 
 import threading
@@ -23,19 +23,22 @@ class Slice_Viewer_Widget(QWidget):
         # showImage=array_preprocess(init_cover,-255,255)
 
     def init_UI(self):
+        self.pixmap=QPixmap("GUI-resourses/start-up.PNG")
         self.layout = QtWidgets.QGridLayout()
         self.label_screen = QtWidgets.QLabel(self)  # label used as a screen to display CT slices
-        self.label_screen.setPixmap(
-            QPixmap("GUI-resourses/start-up.PNG"))  # initialize the label_screen with start-up.PNG
+        self.label_screen.setPixmap(self.pixmap)  # initialize the label_screen with start-up.PNG
         self.layout.addWidget(self.label_screen)
         self.setLayout(self.layout)
         self.setWindowTitle("Slice_Viewer_example")
         self.setWindowIcon(QIcon("GUI-resourses/FT-icon.png"))
 
+
     def init_data(self):
         self.data = None
         self.screen_width, self.screen_height, self.slices_num = None, None, None
         self.slice_index = 0
+        self.current_slice=None
+        self.old_line=(0,0,0,0)
 
     def load_data(self, file_path):
         if ".npy" in file_path:  # numpy_file
@@ -63,21 +66,24 @@ class Slice_Viewer_Widget(QWidget):
                     print("currently already at the top of slices")
                 else:
                     self.slice_index += 1
-                    array = self.data[:, :, self.slice_index]
-                    array = array_preprocess(array, -255, 255)
-                    self.label_screen.setPixmap(QPixmap(array))
+                    self.current_slice = self.data[:, :, self.slice_index]
+                    self.current_slice = array_preprocess(self.current_slice, -255, 255)
+                    self.pixmap=QPixmap(self.current_slice)
+                    self.label_screen.setPixmap(self.pixmap)
             elif mode == "down":
                 if self.slice_index - 1 < 0:
                     print("currently already at the bottom of slices")
                 else:
                     self.slice_index -= 1
-                    array = self.data[:, :, self.slice_index]
-                    array = array_preprocess(array, -255, 255)
-                    self.label_screen.setPixmap(QPixmap(array))
+                    self.current_slice = self.data[:, :, self.slice_index]
+                    self.current_slice = array_preprocess(self.current_slice, -255, 255)
+                    self.pixmap = QPixmap(self.current_slice)
+                    self.label_screen.setPixmap(self.pixmap)
             else:  # neither "up" nor "down", this situation would occur when it loads data.
-                array = self.data[:, :, self.slice_index]
-                array = array_preprocess(array, -255, 255)
-                self.label_screen.setPixmap(QPixmap(array))
+                self.current_slice = self.data[:, :, self.slice_index]
+                self.current_slice = array_preprocess(self.current_slice, -255, 255)
+                self.pixmap=QPixmap(self.current_slice)
+                self.label_screen.setPixmap(self.pixmap)
         else:
             print("No data has been loaded!")
 
@@ -90,9 +96,30 @@ class Slice_Viewer_Widget(QWidget):
             self.show_a_slice(mode="down")
         event.accept()
 
+    def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
+
+        self.pixmap=QPixmap(self.current_slice)
+        painter = QPainter(self.pixmap)
+        pen = QPen(Qt.red, 3)
+        painter.setPen(pen)
+        painter.drawPixmap(0,0,self.pixmap)
+        painter.drawLine(0,event.y(), 522 - 10, event.y())
+        painter.drawLine(event.x(), event.y(), 522 - 10, event.y())
+        self.label_screen.setPixmap(self.pixmap)
+        print(event.x(),event.y())
+        #print(self.label_screen.width(),self.label_screen.height())
+
+    def paintEvent(self, QPaintEvent):
+        # painter = QPainter(self)
+        # painter.setPen(QPen(Qt.red, 3))
+        # painter.begin(self)
+        # painter.drawLine(10,10, 200 - 10, 200)
+        # painter.end()
+        pass
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     gui = Slice_Viewer_Widget()
+    gui.load_data("medical_files/0001.npy")
     gui.show()
     sys.exit(app.exec_())
