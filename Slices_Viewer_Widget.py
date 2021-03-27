@@ -23,7 +23,7 @@ class Slice_Viewer_Widget(QWidget):
         # showImage=array_preprocess(init_cover,-255,255)
 
     def init_UI(self):
-        self.pixmap=QPixmap("GUI-resourses/start-up.PNG")
+        self.pixmap = QPixmap("GUI-resourses/start-up.PNG")
         self.layout = QtWidgets.QGridLayout()
         self.label_screen = QtWidgets.QLabel(self)  # label used as a screen to display CT slices
         self.label_screen.setPixmap(self.pixmap)  # initialize the label_screen with start-up.PNG
@@ -32,13 +32,13 @@ class Slice_Viewer_Widget(QWidget):
         self.setWindowTitle("Slice_Viewer_example")
         self.setWindowIcon(QIcon("GUI-resourses/FT-icon.png"))
 
-
     def init_data(self):
         self.data = None
         self.screen_width, self.screen_height, self.slices_num = None, None, None
         self.slice_index = 0
-        self.current_slice=None
-        self.old_line=(0,0,0,0)
+        self.current_slice = None
+        self.old_line = (0, 0, 0, 0)
+        self.mouse_x,self.mouse_y=0,0      # record the last coordinates of the mouse
 
     def load_data(self, file_path):
         if ".npy" in file_path:  # numpy_file
@@ -68,7 +68,8 @@ class Slice_Viewer_Widget(QWidget):
                     self.slice_index += 1
                     self.current_slice = self.data[:, :, self.slice_index]
                     self.current_slice = array_preprocess(self.current_slice, -255, 255)
-                    self.pixmap=QPixmap(self.current_slice)
+                    self.pixmap = QPixmap(self.current_slice)
+                    self.draw_lines(x=self.mouse_x,y=self.mouse_y)
                     self.label_screen.setPixmap(self.pixmap)
             elif mode == "down":
                 if self.slice_index - 1 < 0:
@@ -78,36 +79,51 @@ class Slice_Viewer_Widget(QWidget):
                     self.current_slice = self.data[:, :, self.slice_index]
                     self.current_slice = array_preprocess(self.current_slice, -255, 255)
                     self.pixmap = QPixmap(self.current_slice)
+                    self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                     self.label_screen.setPixmap(self.pixmap)
             else:  # neither "up" nor "down", this situation would occur when it loads data.
                 self.current_slice = self.data[:, :, self.slice_index]
                 self.current_slice = array_preprocess(self.current_slice, -255, 255)
-                self.pixmap=QPixmap(self.current_slice)
+                self.pixmap = QPixmap(self.current_slice)
+                self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                 self.label_screen.setPixmap(self.pixmap)
         else:
             print("No data has been loaded!")
 
     def wheelEvent(self, event: QWheelEvent):
-        if event.angleDelta().y() > 0:      #mouse scrolling up
+        if event.angleDelta().y() > 0:  # mouse scrolling up
             print("up")
             self.show_a_slice(mode="up")
-        else:                               #mouse scrolling down
+        else:  # mouse scrolling down
             print("down")
             self.show_a_slice(mode="down")
         event.accept()
 
-    def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
+    def draw_lines(self, x, y,radius=30):
 
-        self.pixmap=QPixmap(self.current_slice)
         painter = QPainter(self.pixmap)
+        painter.drawPixmap(0, 0, self.pixmap)
+        #### draw vertical line ####
         pen = QPen(Qt.red, 3)
         painter.setPen(pen)
-        painter.drawPixmap(0,0,self.pixmap)
-        painter.drawLine(0,event.y(), 522 - 10, event.y())
-        painter.drawLine(event.x(), event.y(), 522 - 10, event.y())
+        painter.drawLine(0, y, x - radius, y)
+        painter.drawLine(x+radius, y, 512, y)
+        ############################
+
+        #### draw horizontal line ###
+        pen = QPen(Qt.green, 3)
+        painter.setPen(pen)
+        painter.drawLine(x, 0, x, y-radius)
+        painter.drawLine(x, y+radius, x, 512)
+
+    def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
+
+        self.pixmap = QPixmap(self.current_slice)
+        self.draw_lines(x=event.x(), y=event.y())
         self.label_screen.setPixmap(self.pixmap)
-        print(event.x(),event.y())
-        #print(self.label_screen.width(),self.label_screen.height())
+        self.mouse_x,self.mouse_y=event.x(),event.y()
+        print(event.x(), event.y())
+        # print(self.label_screen.width(),self.label_screen.height())
 
     def paintEvent(self, QPaintEvent):
         # painter = QPainter(self)
@@ -116,6 +132,7 @@ class Slice_Viewer_Widget(QWidget):
         # painter.drawLine(10,10, 200 - 10, 200)
         # painter.end()
         pass
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
