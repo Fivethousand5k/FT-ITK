@@ -1,68 +1,38 @@
-import cv2
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QSize, Qt, QTimer
-from PyQt5.QtGui import QIcon, QPalette, QFont, QPixmap, QImage,QWheelEvent
-from PyQt5.QtWidgets import QWidget, QSizePolicy
-
-import threading
-import  time
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QIcon, QPalette, QFont, QCursor
+from PyQt5.QtWidgets import QMenu, QTreeWidgetItem, QLabel, QSizePolicy, QTreeWidget, QFileDialog
+from PyQt5 import QtCore
 import sys
-import numpy as np
-from  tools import *
-class Player(QWidget):
-    def __init__(self,parent=None,):
-        super(Player, self).__init__(parent)
-        self.init_UI()
-        self.data=np.load("medical_files/0001.npy")
-        self.screen_width,self.screen_height,self.slices_num=self.data.shape
-        print(self.data.shape)
-        self.slice_index=self.slices_num//2
-        init_cover=self.data[:,:,self.slice_index]
-        showImage=process(init_cover,-255,255)
-        self.label_screen.setPixmap(QPixmap(showImage))
+from Slices_Viewer_Widget import Slice_Viewer_Widget
 
-    def init_UI(self):
-        self.layout1=QtWidgets.QGridLayout()  # 创建主部件的网格布局
-        self.label_screen = QtWidgets.QLabel(self)  # 用于展示图片的label
-        self.label_screen.setPixmap(QPixmap("GUI/resources/helmet.jpg"))
-        self.layout1.addWidget(self.label_screen)
-        self.setLayout(self.layout1)  # 设置窗口主部件布局为网格布局
 
-    def show_a_slice(self,mode):
-        if mode=="up":
-            if self.slice_index+1>=self.slices_num:
-                print("currently already at the top of slices")
-            else:
-                self.slice_index+=1
-                array=self.data[:,:,self.slice_index]
-                array=process(array,-255,255)
-                self.label_screen.setPixmap(QPixmap(array))
-        else:
-            if self.slice_index-1<0:
-                print("currently already at the bottom of slices")
-            else:
-                self.slice_index -= 1
-                array = self.data[:, :, self.slice_index]
-                array = process(array, -255, 255)
-                self.label_screen.setPixmap(QPixmap(array))
+class MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
 
-    def wheelEvent(self, event: QWheelEvent):
-        if event.angleDelta().y()>0:
-            print("up")
-            self.show_a_slice(mode="up")
-        else:
-            print("down")
-            self.show_a_slice(mode="down")
-        event.accept()
-def main():
-    app = QtWidgets.QApplication(sys.argv)
-    gui = Player()
-    gui.show()
-    sys.exit(app.exec_())
-
+    def init_ui(self):
+        self.main_widget = QtWidgets.QWidget()
+        self.main_layout = QtWidgets.QGridLayout()
+        self.main_widget.setObjectName('main_widget')
+        self.main_widget.setLayout(self.main_layout)
+        self.setCentralWidget(self.main_widget)  # 设置窗口主部件
+        self.Axial_Viewer = Slice_Viewer_Widget()  # axial view,横断位
+        self.Sagittal_Viewer = Slice_Viewer_Widget()  # sagittal view，矢状位
+        self.Coronal_Viewer = Slice_Viewer_Widget()  # coronal view，冠状位
+        self.Others_Viewer = Slice_Viewer_Widget()
+        self.main_layout.addWidget(self.Axial_Viewer,0,0)
+        self.main_layout.addWidget(self.Sagittal_Viewer,0,1)
+        self.main_layout.addWidget(self.Coronal_Viewer,1,0)
+        #self.main_layout.addWidget(self.Others_Viewer,1,1)
+        self.Axial_Viewer.load_data("medical_files/0001.npy")
+        self.Sagittal_Viewer.load_data("medical_files/0001.npy")
+        self.Coronal_Viewer.load_data("medical_files/0001.npy")
+        self.main_layout.setSpacing(1)
 
 if __name__ == '__main__':
-    main()
-
-
-
+    app = QtWidgets.QApplication(sys.argv)
+    gui = MainWindow()
+    gui.show()
+    sys.exit(app.exec_())

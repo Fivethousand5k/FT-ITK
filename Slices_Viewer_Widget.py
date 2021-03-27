@@ -29,6 +29,7 @@ class Slice_Viewer_Widget(QWidget):
         self.label_screen.setPixmap(self.pixmap)  # initialize the label_screen with start-up.PNG
         self.layout.addWidget(self.label_screen)
         self.setLayout(self.layout)
+        self.layout.setSpacing(0)
         self.setWindowTitle("Slice_Viewer_example")
         self.setWindowIcon(QIcon("GUI-resourses/FT-icon.png"))
 
