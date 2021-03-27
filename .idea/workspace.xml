@@ -19,13 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FT-ITK.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FT-ITK.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="Slices_Viewer_Widget completed!" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -190,6 +184,14 @@
       <option name="presentableId" value="Default" />
       <updated>1616160091458</updated>
     </task>
+    <task id="LOCAL-00001" summary="Slices_Viewer_Widget completed!">
+      <created>1616834207035</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616834207035</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -202,6 +204,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Slices_Viewer_Widget completed!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Slices_Viewer_Widget completed!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616161131970">
@@ -274,5 +280,9 @@
     <state x="230" y="51" key="SettingsEditor/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616727439303" />
     <state x="230" y="51" key="SettingsEditor/0.0.1280.760@0.0.1280.760" timestamp="1616749437094" />
     <state x="345" y="78" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1616161078022" />
+    <state x="233" y="100" key="Vcs.Push.Dialog.v2" timestamp="1616834421224">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="233" y="100" key="Vcs.Push.Dialog.v2/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616834421224" />
   </component>
 </project>
