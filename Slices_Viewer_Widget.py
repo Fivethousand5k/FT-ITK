@@ -12,8 +12,9 @@ from tools import *
 
 
 class Slice_Viewer_Widget(QWidget):
-    def __init__(self, parent=None, ):
+    def __init__(self, parent=None, type="axial"):
         super(Slice_Viewer_Widget, self).__init__(parent)
+        self.init_type(type)
         self.init_UI()
         self.init_data()
 
@@ -21,6 +22,33 @@ class Slice_Viewer_Widget(QWidget):
         # self.screen_width,self.screen_height,self.slices_num=self.data.shape
         # init_cover=self.data[:,:,self.slice_index]
         # showImage=array_preprocess(init_cover,-255,255)
+
+    def init_type(self, type):
+        assert type in ["axial", "sagittal",
+                        "coronal"], "the type of slice viewer must be in [\"axial\",\"sagittal\",\"coronal\"]"
+        color_dict = {
+            "axial": "red",  # red for axial view
+            "sagittal": "green",  # green for sagittal view
+            "coronal": "blue"}  # blue for coronal view
+
+        # the color of horizontal_line on the screen, different colors represent slice viewers of different perspectives in accordance with their edges' color
+        horizontal_line_color_dict = {
+            "axial": Qt.blue,
+            "sagittal": Qt.red,
+            "coronal": Qt.red
+        }
+
+        # the color of vertical_line on the screen, different colors represent slice viewers of different perspectives in accordance with their edges' color
+        vertical_line_color_dict = {
+            "axial": Qt.green,
+            "sagittal": Qt.blue,
+            "coronal": Qt.green
+        }
+
+        self.edge_color = color_dict[type]  # the color surrounding the label_screen
+        self.horizontal_line_color=horizontal_line_color_dict[type]
+        self.vertical_line_color=vertical_line_color_dict[type]
+        self.type=type
 
     def init_UI(self):
         self.pixmap = QPixmap("GUI-resourses/start-up.PNG")
@@ -32,6 +60,17 @@ class Slice_Viewer_Widget(QWidget):
         self.layout.setSpacing(0)
         self.setWindowTitle("Slice_Viewer_example")
         self.setWindowIcon(QIcon("GUI-resourses/FT-icon.png"))
+        # 设置边框样式 可选样式有Box Panel等
+        self.label_screen.setFrameShape(QtWidgets.QFrame.Box)
+        # 设置阴影 只有加了这步才能设置边框颜色
+        # 可选样式有Raised、Sunken、Plain（这个无法设置颜色）等
+        self.label_screen.setFrameShadow(QtWidgets.QFrame.Raised)
+        # 设置线条宽度
+        self.label_screen.setLineWidth(3)
+        # 设置背景颜色，包括边框颜色
+        #self.label_screen.setStyleSheet('background-color: rgb{}'.format(self.edge_color))
+        self.label_screen.setStyleSheet('background-color:'+self.edge_color)
+
 
     def init_data(self):
         self.data = None
@@ -39,11 +78,28 @@ class Slice_Viewer_Widget(QWidget):
         self.slice_index = 0
         self.current_slice = None
         self.old_line = (0, 0, 0, 0)
-        self.mouse_x,self.mouse_y=0,0      # record the last coordinates of the mouse
+        self.mouse_x, self.mouse_y = 0, 0  # record the last coordinates of the mouse
 
-    def load_data(self, file_path):
+    def load_data_from_path(self, file_path: str):
+        """
+        the Slice_viewer reads the array from file_path(a str). It currently supports .npy
+        :param file_path: file_path should be a string
+        :return:
+        """
         if ".npy" in file_path:  # numpy_file
             data = np.load(file_path)
+        self.data = data
+        self.screen_width, self.screen_height, self.slices_num = data.shape
+        self.slice_index = 0  # initialize the slice index with 0
+        self.show_a_slice()
+
+    def load_data_from_father(self, data):
+        """
+        the Slice_viewer receives data directly from the father widget. By doing this, all the Slice_viewers could share
+         a variable with potentially large size(several hundred MB usually), thus help save the consumption of memory.
+        :param data:
+        :return:
+        """
         self.data = data
         self.screen_width, self.screen_height, self.slices_num = data.shape
         self.slice_index = 0  # initialize the slice index with 0
@@ -70,7 +126,7 @@ class Slice_Viewer_Widget(QWidget):
                     self.current_slice = self.data[:, :, self.slice_index]
                     self.current_slice = array_preprocess(self.current_slice, -255, 255)
                     self.pixmap = QPixmap(self.current_slice)
-                    self.draw_lines(x=self.mouse_x,y=self.mouse_y)
+                    self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                     self.label_screen.setPixmap(self.pixmap)
             elif mode == "down":
                 if self.slice_index - 1 < 0:
@@ -90,7 +146,14 @@ class Slice_Viewer_Widget(QWidget):
                 self.label_screen.setPixmap(self.pixmap)
         else:
             print("No data has been loaded!")
-
+    def update_current_slice(self):
+        if self.type is "axial":
+            self.current_slice = self.data[:, :, self.slice_index]
+        elif self.type is "sagittal":
+            self.current_slice =self.data[:,self.slice_index,:]
+        elif self.type is "coronal" :
+            self.current_slice =self.data[self.slice_index,:,:]
+        self.current_slice=array_preprocess(self.current_slice,-255,255)
     def wheelEvent(self, event: QWheelEvent):
         if event.angleDelta().y() > 0:  # mouse scrolling up
             print("up")
@@ -100,29 +163,29 @@ class Slice_Viewer_Widget(QWidget):
             self.show_a_slice(mode="down")
         event.accept()
 
-    def draw_lines(self, x, y,radius=30):
+    def draw_lines(self, x, y, radius=30):
 
         painter = QPainter(self.pixmap)
         painter.drawPixmap(0, 0, self.pixmap)
-        #### draw vertical line ####
-        pen = QPen(Qt.red, 3)
+        #### draw horizontal line ####
+        pen = QPen(self.horizontal_line_color, 3)
         painter.setPen(pen)
         painter.drawLine(0, y, x - radius, y)
-        painter.drawLine(x+radius, y, 512, y)
+        painter.drawLine(x + radius, y, 512, y)
         ############################
 
-        #### draw horizontal line ###
-        pen = QPen(Qt.green, 3)
+        #### draw vertical line ###
+        pen = QPen(self.vertical_line_color, 3)
         painter.setPen(pen)
-        painter.drawLine(x, 0, x, y-radius)
-        painter.drawLine(x, y+radius, x, 512)
+        painter.drawLine(x, 0, x, y - radius)
+        painter.drawLine(x, y + radius, x, 512)
 
     def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
 
         self.pixmap = QPixmap(self.current_slice)
         self.draw_lines(x=event.x(), y=event.y())
         self.label_screen.setPixmap(self.pixmap)
-        self.mouse_x,self.mouse_y=event.x(),event.y()
+        self.mouse_x, self.mouse_y = event.x(), event.y()
         print(event.x(), event.y())
         # print(self.label_screen.width(),self.label_screen.height())
 
@@ -138,6 +201,6 @@ class Slice_Viewer_Widget(QWidget):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     gui = Slice_Viewer_Widget()
-    gui.load_data("medical_files/0001.npy")
+    gui.load_data_from_path("medical_files/0001.npy")
     gui.show()
     sys.exit(app.exec_())
