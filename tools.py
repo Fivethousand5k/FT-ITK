@@ -36,20 +36,24 @@ def array_preprocess(array, min, max,type="axial",target_output_size=512):
         print(array.shape)
         array=flip90_left(array)
         height,width=array.shape
-        tmp_array=np.zeros((target_output_size,target_output_size), dtype=np.uint8)
-        tmp_array[0:height,0:width]=array
+        up_index=target_output_size//2-height//2
+        bottom_index=up_index+height
+        tmp_array=np.ones((target_output_size,target_output_size), dtype=np.uint8)*20
+        tmp_array[up_index:bottom_index,:]=array
         array=tmp_array
 
     elif type == "coronal":
         print(array.shape)
         array=flip90_left(array)
         height,width=array.shape
-        tmp_array=np.zeros((target_output_size,target_output_size), dtype=np.uint8)
-        tmp_array[0:height,0:width]=array
+        up_index=target_output_size//2-height//2
+        bottom_index=up_index+height
+        tmp_array=np.ones((target_output_size,target_output_size), dtype=np.uint8)*20
+        tmp_array[up_index:bottom_index,:]=array
         array=tmp_array
 
     array = skimage.color.gray2rgb(array)
-    showImage = QImage(array, array.shape[1], array.shape[0],
+    showImage = QImage(array.copy(), array.shape[1], array.shape[0],
                        QImage.Format_RGB888)  # 转换成QImage类型
     return showImage
 
@@ -62,9 +66,9 @@ def flip180(arr):
     return new_arr
 
 def flip90_left(arr):
-    new_arr = np.transpose(arr)
-    new_arr = new_arr[::-1]
-    return new_arr
+    arr = arr.T
+    arr = arr[::-1]
+    return arr
 
 def flip90_right(arr):
     new_arr = arr.reshape(arr.size)
@@ -72,3 +76,15 @@ def flip90_right(arr):
     new_arr = new_arr.reshape(arr.shape)
     new_arr = np.transpose(new_arr)[::-1]
     return new_arr
+
+def place_on_center(background_array,array):
+    """
+    place the array onto the central part of background array
+    :param background_array:
+    :param array:
+    :return:
+    """
+    bg_height,bg_width=background_array.shape
+    height,width=array.shape
+
+

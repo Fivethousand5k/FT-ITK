@@ -1,7 +1,7 @@
 import cv2
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QSize, Qt, QTimer
-from PyQt5.QtGui import QIcon, QPalette, QFont, QPixmap, QImage, QWheelEvent, QPainter, QPen
+from PyQt5.QtGui import QIcon, QPalette, QFont, QPixmap, QImage, QWheelEvent, QPainter, QPen, QBrush
 from PyQt5.QtWidgets import QWidget, QSizePolicy
 
 import threading
@@ -12,11 +12,14 @@ from tools import *
 
 
 class Slice_Viewer_Widget(QWidget):
+    Fixed_image_size = 512
+
     def __init__(self, parent=None, type="axial"):
         super(Slice_Viewer_Widget, self).__init__(parent)
         self.init_type(type)
         self.init_UI()
         self.init_data()
+        self.init_signals()
 
         # self.data=np.load("0001.npy")
         # self.screen_width,self.screen_height,self.slices_num=self.data.shape
@@ -46,20 +49,23 @@ class Slice_Viewer_Widget(QWidget):
         }
 
         self.edge_color = color_dict[type]  # the color surrounding the label_screen
-        self.horizontal_line_color=horizontal_line_color_dict[type]
-        self.vertical_line_color=vertical_line_color_dict[type]
-        self.type=type
+        self.horizontal_line_color = horizontal_line_color_dict[type]
+        self.vertical_line_color = vertical_line_color_dict[type]
+        self.type = type
 
     def init_UI(self):
+        # self.setFixedSize(600,600)
         self.pixmap = QPixmap("GUI-resourses/start-up.PNG")
         self.layout = QtWidgets.QGridLayout()
         self.label_screen = QtWidgets.QLabel(self)  # label used as a screen to display CT slices
         self.label_screen.setPixmap(self.pixmap)  # initialize the label_screen with start-up.PNG
         self.layout.addWidget(self.label_screen)
+        self.layout.setAlignment(Qt.AlignCenter)
         self.setLayout(self.layout)
         self.layout.setSpacing(0)
         self.setWindowTitle("Slice_Viewer_example")
         self.setWindowIcon(QIcon("GUI-resourses/FT-icon.png"))
+        self.layout.setContentsMargins(0, 0, 0, 0)
         # 设置边框样式 可选样式有Box Panel等
         self.label_screen.setFrameShape(QtWidgets.QFrame.Box)
         # 设置阴影 只有加了这步才能设置边框颜色
@@ -68,9 +74,13 @@ class Slice_Viewer_Widget(QWidget):
         # 设置线条宽度
         self.label_screen.setLineWidth(3)
         # 设置背景颜色，包括边框颜色
-        #self.label_screen.setStyleSheet('background-color: rgb{}'.format(self.edge_color))
-        self.label_screen.setStyleSheet('background-color:'+self.edge_color)
+        # self.label_screen.setStyleSheet('background-color: rgb{}'.format(self.edge_color))
+        self.label_screen.setStyleSheet('background-color:' + self.edge_color)
 
+    def draw_background(self):
+        self.palette = QPalette()
+        self.palette.setBrush(QPalette.Background, QBrush(QPixmap("GUI-resourses/FT-icon.png")))
+        self.setPalette(self.palette)
 
     def init_data(self):
         self.data = None
@@ -79,6 +89,9 @@ class Slice_Viewer_Widget(QWidget):
         self.current_slice = None
         self.old_line = (0, 0, 0, 0)
         self.mouse_x, self.mouse_y = 0, 0  # record the last coordinates of the mouse
+
+    def init_signals(self):
+        self.output_signal = QtCore.pyqtSignal(Message_box)
 
     def load_data_from_path(self, file_path: str):
         """
@@ -90,6 +103,10 @@ class Slice_Viewer_Widget(QWidget):
             data = np.load(file_path)
         self.data = data
         self.screen_width, self.screen_height, self.slices_num = self.get_screen_width_height_slicenum(data)
+        self.check_data_validity()
+        self.up_index, self.bottom_index = self.get_content_up_and_bottom_index()
+        self.label_screen.resize(self.screen_height, self.screen_width)
+        self.label_screen.setFixedSize(self.screen_height, self.screen_width)
         self.slice_index = 0  # initialize the slice index with 0
         self.show_a_slice()
 
@@ -102,22 +119,50 @@ class Slice_Viewer_Widget(QWidget):
         """
         self.data = data
         self.screen_width, self.screen_height, self.slices_num = self.get_screen_width_height_slicenum(data)
+        self.check_data_validity()
+        self.up_index, self.bottom_index = self.get_content_up_and_bottom_index()
+        # self.
+        # self.label_screen.resize(self.screen_height,  self.screen_width)
+        # self.label_screen.setFixedSize(self.screen_height,  self.screen_width)
         self.slice_index = 0  # initialize the slice index with 0
         self.show_a_slice()
 
-    def get_screen_width_height_slicenum(self,data):
+    def get_screen_width_height_slicenum(self, data):
         """
         self.screen_width, self.screen_height, self.slices_num according to the type of slice_viewer
         :return:
         """
         if self.type == "axial":
             self.screen_height, self.screen_width, self.slices_num = data.shape
-        elif self.type =="sagittal":
-            self.screen_height,self.slices_num,self.screen_width=data.shape
+        elif self.type == "sagittal":
+            self.screen_width, self.slices_num, self.screen_height = data.shape
         elif self.type == "coronal":
-            self.slices_num,self.screen_height,self.screen_width=data.shape
+            self.slices_num, self.screen_width, self.screen_height = data.shape
         return self.screen_width, self.screen_height, self.slices_num
 
+    def get_content_up_and_bottom_index(self):
+        """
+            only used in sagittal and coronal slice viewers.
+            In sagittal and coronal slice viewers, the height of a slice does not equal self.Fixed_image_size. If we dir
+        -ectly put the slices onto label_screen they will be inevitably placed adjoin to the top of widget. Therefore, I de
+        -cide to pad the slices with certain value in order to place slices on the central part of widget.
+       """
+        up_index = self.Fixed_image_size // 2 - self.screen_height // 2
+        bottom_index = up_index + self.screen_height
+        return up_index, bottom_index
+
+    def check_data_validity(self):
+        if self.type == "axial":
+            assert self.screen_height == self.Fixed_image_size, "the screen height does not equal Fixed_image_size({})".format(
+                self.Fixed_image_size)
+            assert self.screen_width == self.Fixed_image_size, "the screen width does not equal Fixed_image_size({})".format(
+                self.Fixed_image_size)
+        elif self.type == "sagittal":
+            assert self.screen_width == self.Fixed_image_size, " the screen width does not equal Fixed_image_size({})".format(
+                self.Fixed_image_size)
+        elif self.type == "coronal":
+            assert self.screen_width == self.Fixed_image_size, "the screen width does not equal Fixed_image_size({})".format(
+                self.Fixed_image_size)
 
     def show_a_slice(self, mode="others"):
         """
@@ -158,22 +203,35 @@ class Slice_Viewer_Widget(QWidget):
                 self.label_screen.setPixmap(self.pixmap)
         else:
             print("No data has been loaded!")
+
     def update_current_slice(self):
         if self.type is "axial":
             self.current_slice = self.data[:, :, self.slice_index]
         elif self.type is "sagittal":
-            self.current_slice =self.data[:,self.slice_index,:]
-        elif self.type is "coronal" :
-            self.current_slice =self.data[self.slice_index,:,:]
-        self.current_slice=array_preprocess(self.current_slice,-255,255,type=self.type)
+            self.current_slice = self.data[:, self.slice_index, :]
+        elif self.type is "coronal":
+            self.current_slice = self.data[self.slice_index, :, :]
+        self.current_slice = array_preprocess(self.current_slice, -255, 255, type=self.type)
 
     def wheelEvent(self, event: QWheelEvent):
+        """
+        mouse wheel scrolling event
+        set scrolling from back to front as "scrolling up"
+        set scrolling from front to back as "scrolling down"
+        For coronal slice viewer specially, when user scrolls up, it will actually execute "scrolling down" (I was doing this for sake of habit, you can give it a try to figure out why I did it!)
+        :param event:
+        :return:
+        """
         if event.angleDelta().y() > 0:  # mouse scrolling up
-            print("up")
-            self.show_a_slice(mode="up")
+            if self.type is not "coronal":
+                self.show_a_slice(mode="up")
+            else:
+                self.show_a_slice(mode="down")
         else:  # mouse scrolling down
-            print("down")
-            self.show_a_slice(mode="down")
+            if self.type is not "coronal":
+                self.show_a_slice(mode="down")
+            else:
+                self.show_a_slice(mode="up")
         event.accept()
 
     def draw_lines(self, x, y, radius=30):
@@ -190,16 +248,16 @@ class Slice_Viewer_Widget(QWidget):
         #### draw vertical line ###
         pen = QPen(self.vertical_line_color, 3)
         painter.setPen(pen)
-        painter.drawLine(x, 0, x, y - radius)
-        painter.drawLine(x, y + radius, x, 512)
+        painter.drawLine(x, self.up_index, x, y - radius)
+        painter.drawLine(x, y + radius, x, self.bottom_index)
 
     def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
-
-        self.pixmap = QPixmap(self.current_slice)
-        self.draw_lines(x=event.x(), y=event.y())
-        self.label_screen.setPixmap(self.pixmap)
-        self.mouse_x, self.mouse_y = event.x(), event.y()
-        print(event.x(), event.y())
+        if event.y() >= self.up_index and event.y() <= self.bottom_index and event.x() >= 0 and event.x() <= self.Fixed_image_size:
+            self.pixmap = QPixmap(self.current_slice)
+            self.draw_lines(x=event.x(), y=event.y())
+            self.label_screen.setPixmap(self.pixmap)
+            self.mouse_x, self.mouse_y = event.x(), event.y()
+            print(event.x(), event.y())
         # print(self.label_screen.width(),self.label_screen.height())
 
     def paintEvent(self, QPaintEvent):
@@ -208,10 +266,22 @@ class Slice_Viewer_Widget(QWidget):
         pass
 
 
+class Message_box():
+    """
+    "message unit emitted by slice_viewer, heading for the Signal Central Process Unit (SCPU)
+    """
+
+    def __init__(self, type, mouse_x, mouse_y):
+        self.Slice_Viewer_Widget_type = type
+        self.mouse_x = 0
+        self.mouse_y = 0
+
+
 if __name__ == '__main__':
+    data = np.load("medical_files/0001.npy")
     app = QtWidgets.QApplication(sys.argv)
-    gui = Slice_Viewer_Widget(type="coronal")
-    gui.load_data_from_path("medical_files/0001.npy")
+    gui = Slice_Viewer_Widget(type="sagittal")
+    # gui.load_data_from_path("medical_files/0001.npy")
+    gui.load_data_from_father(data)
     gui.show()
     sys.exit(app.exec_())
-

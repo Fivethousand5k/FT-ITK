@@ -30,7 +30,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Axial_Viewer.load_data_from_father(self.data)
         self.Sagittal_Viewer.load_data_from_father(self.data)
         self.Coronal_Viewer.load_data_from_father(self.data)
-        self.main_layout.setSpacing(1)
+        self.main_layout.setSpacing(2)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
