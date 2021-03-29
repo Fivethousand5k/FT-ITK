@@ -89,7 +89,7 @@ class Slice_Viewer_Widget(QWidget):
         if ".npy" in file_path:  # numpy_file
             data = np.load(file_path)
         self.data = data
-        self.screen_width, self.screen_height, self.slices_num = data.shape
+        self.screen_width, self.screen_height, self.slices_num = self.get_screen_width_height_slicenum(data)
         self.slice_index = 0  # initialize the slice index with 0
         self.show_a_slice()
 
@@ -101,9 +101,23 @@ class Slice_Viewer_Widget(QWidget):
         :return:
         """
         self.data = data
-        self.screen_width, self.screen_height, self.slices_num = data.shape
+        self.screen_width, self.screen_height, self.slices_num = self.get_screen_width_height_slicenum(data)
         self.slice_index = 0  # initialize the slice index with 0
         self.show_a_slice()
+
+    def get_screen_width_height_slicenum(self,data):
+        """
+        self.screen_width, self.screen_height, self.slices_num according to the type of slice_viewer
+        :return:
+        """
+        if self.type == "axial":
+            self.screen_height, self.screen_width, self.slices_num = data.shape
+        elif self.type =="sagittal":
+            self.screen_height,self.slices_num,self.screen_width=data.shape
+        elif self.type == "coronal":
+            self.slices_num,self.screen_height,self.screen_width=data.shape
+        return self.screen_width, self.screen_height, self.slices_num
+
 
     def show_a_slice(self, mode="others"):
         """
@@ -123,8 +137,7 @@ class Slice_Viewer_Widget(QWidget):
                     print("currently already at the top of slices")
                 else:
                     self.slice_index += 1
-                    self.current_slice = self.data[:, :, self.slice_index]
-                    self.current_slice = array_preprocess(self.current_slice, -255, 255)
+                    self.update_current_slice()
                     self.pixmap = QPixmap(self.current_slice)
                     self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                     self.label_screen.setPixmap(self.pixmap)
@@ -133,14 +146,13 @@ class Slice_Viewer_Widget(QWidget):
                     print("currently already at the bottom of slices")
                 else:
                     self.slice_index -= 1
-                    self.current_slice = self.data[:, :, self.slice_index]
-                    self.current_slice = array_preprocess(self.current_slice, -255, 255)
+                    self.update_current_slice()
                     self.pixmap = QPixmap(self.current_slice)
                     self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                     self.label_screen.setPixmap(self.pixmap)
             else:  # neither "up" nor "down", this situation would occur when it loads data.
-                self.current_slice = self.data[:, :, self.slice_index]
-                self.current_slice = array_preprocess(self.current_slice, -255, 255)
+
+                self.update_current_slice()
                 self.pixmap = QPixmap(self.current_slice)
                 self.draw_lines(x=self.mouse_x, y=self.mouse_y)
                 self.label_screen.setPixmap(self.pixmap)
@@ -153,7 +165,8 @@ class Slice_Viewer_Widget(QWidget):
             self.current_slice =self.data[:,self.slice_index,:]
         elif self.type is "coronal" :
             self.current_slice =self.data[self.slice_index,:,:]
-        self.current_slice=array_preprocess(self.current_slice,-255,255)
+        self.current_slice=array_preprocess(self.current_slice,-255,255,type=self.type)
+
     def wheelEvent(self, event: QWheelEvent):
         if event.angleDelta().y() > 0:  # mouse scrolling up
             print("up")
@@ -192,15 +205,13 @@ class Slice_Viewer_Widget(QWidget):
     def paintEvent(self, QPaintEvent):
         # painter = QPainter(self)
         # painter.setPen(QPen(Qt.red, 3))
-        # painter.begin(self)
-        # painter.drawLine(10,10, 200 - 10, 200)
-        # painter.end()
         pass
 
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    gui = Slice_Viewer_Widget()
+    gui = Slice_Viewer_Widget(type="coronal")
     gui.load_data_from_path("medical_files/0001.npy")
     gui.show()
     sys.exit(app.exec_())
+

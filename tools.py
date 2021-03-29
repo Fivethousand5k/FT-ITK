@@ -16,7 +16,7 @@ import skimage
 
 
 
-def array_preprocess(array, min, max,type="axial"):
+def array_preprocess(array, min, max,type="axial",target_output_size=512):
     """
     preprocess the array with min and max value, for the points that CT slices could be processed as
     :param array: input grayscale 2-dimention array
@@ -30,13 +30,45 @@ def array_preprocess(array, min, max,type="axial"):
     array[array > max] = max
     array=((array-min)/(max-min)*255).astype(np.uint8)
     #array=np.flipud(array)
-    array = skimage.color.gray2rgb(array)
     if type == "axial":
         pass
-    elif type=="sagittal":
-        pass
-    elif type=="coronal":
-        pass
+    elif type == "sagittal":
+        print(array.shape)
+        array=flip90_left(array)
+        height,width=array.shape
+        tmp_array=np.zeros((target_output_size,target_output_size), dtype=np.uint8)
+        tmp_array[0:height,0:width]=array
+        array=tmp_array
+
+    elif type == "coronal":
+        print(array.shape)
+        array=flip90_left(array)
+        height,width=array.shape
+        tmp_array=np.zeros((target_output_size,target_output_size), dtype=np.uint8)
+        tmp_array[0:height,0:width]=array
+        array=tmp_array
+
+    array = skimage.color.gray2rgb(array)
     showImage = QImage(array, array.shape[1], array.shape[0],
                        QImage.Format_RGB888)  # 转换成QImage类型
     return showImage
+
+
+
+def flip180(arr):
+    new_arr = arr.reshape(arr.size)
+    new_arr = new_arr[::-1]
+    new_arr = new_arr.reshape(arr.shape)
+    return new_arr
+
+def flip90_left(arr):
+    new_arr = np.transpose(arr)
+    new_arr = new_arr[::-1]
+    return new_arr
+
+def flip90_right(arr):
+    new_arr = arr.reshape(arr.size)
+    new_arr = new_arr[::-1]
+    new_arr = new_arr.reshape(arr.shape)
+    new_arr = np.transpose(new_arr)[::-1]
+    return new_arr
