@@ -5,13 +5,14 @@ from PyQt5.QtWidgets import QMenu, QTreeWidgetItem, QLabel, QSizePolicy, QTreeWi
 from PyQt5 import QtCore
 import sys
 from Slices_Viewer_Widget import Slice_Viewer_Widget
+from Signal_Central_Process_Unit import SCPU
 import numpy as np
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.init_ui()
-
+        self.init_data()
     def init_ui(self):
         self.main_widget = QtWidgets.QWidget()
         self.main_layout = QtWidgets.QGridLayout()
@@ -31,6 +32,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Sagittal_Viewer.load_data_from_father(self.data)
         self.Coronal_Viewer.load_data_from_father(self.data)
         self.main_layout.setSpacing(2)
+
+    def init_data(self):
+        self.SCPU=SCPU()    #Signal_Central_Process_Unit(SCPU)
+
+    def init_SCPU_signal_connection(self):
+        self.Axial_Viewer.output_signal.connect(self.SCPU.Process_Core)
+        self.Sagittal_Viewer.output_signal.connect(self.SCPU.Process_Core)
+        self.Coronal_Viewer.output_signal.connect(self.SCPU.Process_Core)
+        self.SCPU.command_to_axial.connect(self.Axial_Viewer.handle_SCPU_command)
+        self.SCPU.command_to_sagittal.connect(self.Sagittal_Viewer.handle_SCPU_command)
+        self.SCPU.command_to_coronal.connect(self.Coronal_Viewer.handle_SCPU_command)
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

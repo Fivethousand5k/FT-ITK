@@ -9,6 +9,7 @@ import time
 import sys
 import numpy as np
 from tools import *
+from Message_Boxes import SCPU_Message_Box,Message_box
 
 
 class Slice_Viewer_Widget(QWidget):
@@ -91,7 +92,7 @@ class Slice_Viewer_Widget(QWidget):
         self.mouse_x, self.mouse_y = 0, 0  # record the last coordinates of the mouse
 
     def init_signals(self):
-        self.output_signal = QtCore.pyqtSignal(Message_box)
+        self.output_signal = QtCore.pyqtSignal()
 
     def load_data_from_path(self, file_path: str):
         """
@@ -213,6 +214,8 @@ class Slice_Viewer_Widget(QWidget):
             self.current_slice = self.data[self.slice_index, :, :]
         self.current_slice = array_preprocess(self.current_slice, -255, 255, type=self.type)
 
+    def handle_SCPU_command(self, command: SCPU_Message_Box):
+        pass
     def wheelEvent(self, event: QWheelEvent):
         """
         mouse wheel scrolling event
@@ -227,11 +230,15 @@ class Slice_Viewer_Widget(QWidget):
                 self.show_a_slice(mode="up")
             else:
                 self.show_a_slice(mode="down")
+            message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y,slice_index=self.slice_index)
+            self.output_signal.emit(message)
         else:  # mouse scrolling down
             if self.type is not "coronal":
                 self.show_a_slice(mode="down")
             else:
                 self.show_a_slice(mode="up")
+            message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y,slice_index=self.slice_index)
+            self.output_signal.emit(message)
         event.accept()
 
     def draw_lines(self, x, y, radius=30):
@@ -266,15 +273,7 @@ class Slice_Viewer_Widget(QWidget):
         pass
 
 
-class Message_box():
-    """
-    "message unit emitted by slice_viewer, heading for the Signal Central Process Unit (SCPU)
-    """
 
-    def __init__(self, type, mouse_x, mouse_y):
-        self.Slice_Viewer_Widget_type = type
-        self.mouse_x = 0
-        self.mouse_y = 0
 
 
 if __name__ == '__main__':
