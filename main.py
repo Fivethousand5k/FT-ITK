@@ -13,6 +13,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.init_ui()
         self.init_data()
+        self.init_SCPU_signal_connection()
     def init_ui(self):
         self.main_widget = QtWidgets.QWidget()
         self.main_layout = QtWidgets.QGridLayout()

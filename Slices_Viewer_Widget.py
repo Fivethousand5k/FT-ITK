@@ -14,13 +14,14 @@ from Message_Boxes import SCPU_Message_Box,Message_box
 
 class Slice_Viewer_Widget(QWidget):
     Fixed_image_size = 512
+    output_signal = QtCore.pyqtSignal(Message_box)
 
     def __init__(self, parent=None, type="axial"):
         super(Slice_Viewer_Widget, self).__init__(parent)
         self.init_type(type)
         self.init_UI()
         self.init_data()
-        self.init_signals()
+       # self.init_signals()
 
         # self.data=np.load("0001.npy")
         # self.screen_width,self.screen_height,self.slices_num=self.data.shape
@@ -215,7 +216,13 @@ class Slice_Viewer_Widget(QWidget):
         self.current_slice = array_preprocess(self.current_slice, -255, 255, type=self.type)
 
     def handle_SCPU_command(self, command: SCPU_Message_Box):
-        pass
+        x,y,slice_index=command.x,command.y,command.slice_index
+        self.mouse_x,self.mouse_y=x,y
+        self.slice_index=slice_index
+        self.update_current_slice()
+        self.pixmap = QPixmap(self.current_slice)
+        self.draw_lines(x=self.mouse_x,y=self.mouse_y)
+        self.label_screen.setPixmap(self.pixmap)
     def wheelEvent(self, event: QWheelEvent):
         """
         mouse wheel scrolling event
