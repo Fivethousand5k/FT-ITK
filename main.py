@@ -6,6 +6,7 @@ from PyQt5 import QtCore
 import sys
 from Slices_Viewer_Widget import Slice_Viewer_Widget
 from Signal_Central_Process_Unit import SCPU
+from VTK_Viewer_widget import VTK_Viewer_widget
 import numpy as np
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -15,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.init_data()
         self.init_SCPU_signal_connection()
     def init_ui(self):
+        self.setWindowTitle("FT-ITK")
         self.main_widget = QtWidgets.QWidget()
         self.main_layout = QtWidgets.QGridLayout()
         self.main_widget.setObjectName('main_widget')
@@ -23,10 +25,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.Axial_Viewer = Slice_Viewer_Widget(type="axial")  # axial view,横断位
         self.Sagittal_Viewer = Slice_Viewer_Widget(type="sagittal")  # sagittal view，矢状位
         self.Coronal_Viewer = Slice_Viewer_Widget(type="coronal")  # coronal view，冠状位
-        self.Others_Viewer = Slice_Viewer_Widget()
+        # self.Others_Viewer = Slice_Viewer_Widget()
+        self.VTK_Viewer=VTK_Viewer_widget()
         self.main_layout.addWidget(self.Axial_Viewer,0,0)
         self.main_layout.addWidget(self.Sagittal_Viewer,0,1)
         self.main_layout.addWidget(self.Coronal_Viewer,1,0)
+        self.main_layout.addWidget(self.VTK_Viewer,1,1)
         self.data=np.load("medical_files/0001.npy")
         #self.main_layout.addWidget(self.Others_Viewer,1,1)
         self.Axial_Viewer.load_data_from_father(self.data)

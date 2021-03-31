@@ -35,6 +35,7 @@ def array_preprocess(array, min, max,type="axial",target_output_size=512):
     elif type == "sagittal":
         print(array.shape)
         array=flip90_left(array)
+        array=np.flipud(array)
         height,width=array.shape
         up_index=target_output_size//2-height//2
         bottom_index=up_index+height
@@ -45,6 +46,7 @@ def array_preprocess(array, min, max,type="axial",target_output_size=512):
     elif type == "coronal":
         print(array.shape)
         array=flip90_left(array)
+        array = np.flipud(array)
         height,width=array.shape
         up_index=target_output_size//2-height//2
         bottom_index=up_index+height

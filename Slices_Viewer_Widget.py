@@ -217,8 +217,8 @@ class Slice_Viewer_Widget(QWidget):
 
     def handle_SCPU_command(self, command: SCPU_Message_Box):
         x,y,slice_index=command.x,command.y,command.slice_index
-        self.mouse_x,self.mouse_y=x,y
-        self.slice_index=slice_index
+        self.mouse_x,self.mouse_y=x,y+self.up_index
+        self.slice_index=slice_index if slice_index<self.slices_num else self.slices_num-1
         self.update_current_slice()
         self.pixmap = QPixmap(self.current_slice)
         self.draw_lines(x=self.mouse_x,y=self.mouse_y)
@@ -237,15 +237,14 @@ class Slice_Viewer_Widget(QWidget):
                 self.show_a_slice(mode="up")
             else:
                 self.show_a_slice(mode="down")
-            message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y,slice_index=self.slice_index)
-            self.output_signal.emit(message)
         else:  # mouse scrolling down
             if self.type is not "coronal":
                 self.show_a_slice(mode="down")
             else:
                 self.show_a_slice(mode="up")
-            message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y,slice_index=self.slice_index)
-            self.output_signal.emit(message)
+        message = Message_box(type=self.type, mouse_x=self.mouse_x, mouse_y=self.mouse_y - self.up_index,
+                              slice_index=self.slice_index)
+        self.output_signal.emit(message)
         event.accept()
 
     def draw_lines(self, x, y, radius=30):
@@ -266,13 +265,34 @@ class Slice_Viewer_Widget(QWidget):
         painter.drawLine(x, y + radius, x, self.bottom_index)
 
     def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
-        if event.y() >= self.up_index and event.y() <= self.bottom_index and event.x() >= 0 and event.x() <= self.Fixed_image_size:
+        # if event.y() >= self.up_index and event.y() <= self.bottom_index and event.x() >= 0 and event.x() <= self.Fixed_image_size:
+    #         #     self.pixmap = QPixmap(self.current_slice)
+    #         #     self.draw_lines(x=event.x(), y=event.y())
+    #         #     self.label_screen.setPixmap(self.pixmap)
+    #         #     self.mouse_x, self.mouse_y = event.x(), event.y()
+    #         #     print(event.x(), event.y())
+    #         #     message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y-self.up_index,slice_index=self.slice_index)
+    #         #     self.output_signal.emit(message)
+           # self.mouse_y=self.up_index if event.y()<self.up_index elif event.y() <= self.bottom_index
+            if event.x()<0:
+                self.mouse_x=0
+            elif event.x()>self.Fixed_image_size:
+                self.mouse_x=self.Fixed_image_size
+            else:
+                self.mouse_x=event.x()
+            if event.y()<self.up_index:
+                self.mouse_y=self.up_index
+            elif event.y()>self.bottom_index:
+                self.mouse_y=self.bottom_index
+            else:
+                self.mouse_y=event.y()
+            self.mouse_x=event.x()
             self.pixmap = QPixmap(self.current_slice)
-            self.draw_lines(x=event.x(), y=event.y())
+            self.draw_lines(x=self.mouse_x, y=self.mouse_y)
             self.label_screen.setPixmap(self.pixmap)
-            self.mouse_x, self.mouse_y = event.x(), event.y()
             print(event.x(), event.y())
-        # print(self.label_screen.width(),self.label_screen.height())
+            message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y-self.up_index,slice_index=self.slice_index)
+            self.output_signal.emit(message)
 
     def paintEvent(self, QPaintEvent):
         # painter = QPainter(self)
