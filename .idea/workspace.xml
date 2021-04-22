@@ -19,12 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="">
+    <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="completed: 1.each slice view can correctly emit message now. &#10;2.add a VTK_Viewer_widget for further 3D visualization development. By now I just visualize a simple sphere and a cone as demo.&#10;3. waiting for new bugs to fix, I post it in wechat and look forward to co-contributors.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Slices_Viewer_Widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slices_Viewer_Widget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VTK_Viewer_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/VTK_Viewer_widget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vtk-example2.py" beforeDir="false" afterPath="$PROJECT_DIR$/vtk-examples/vtk-example2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,11 +195,11 @@
     </configuration>
     <list>
       <item itemvalue="Python.Unnamed" />
-      <item itemvalue="Python.VTK_Viewer_widget" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.vtk-examples5" />
       <item itemvalue="Python.vtk-example7" />
       <item itemvalue="Python.vtk-example8" />
-      <item itemvalue="Python.vtk-examples5" />
+      <item itemvalue="Python.VTK_Viewer_widget" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
@@ -262,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617193537207</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="completed: 1.each slice view can correctly emit message now. &#10;2.add a VTK_Viewer_widget for further 3D visualization development. By now I just visualize a simple sphere and a cone as demo.&#10;3. waiting for new bugs to fix, I post it in wechat and look forward to co-contributors.">
+      <created>1619060724178</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619060724178</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,9 +298,10 @@
     </state>
     <state x="396" y="82" key="#xdebugger.evaluate/0.0.1280.760@0.0.1280.760" timestamp="1616847879732" />
     <state x="594" y="112" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1616984797522" />
-    <state x="285" y="19" key="CommitChangelistDialog2" timestamp="1617193534667">
-      <screen x="93" y="0" width="1827" height="1080" />
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1619060896864">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1619060896864" />
     <state x="202" y="18" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1617074165002" />
     <state x="285" y="19" key="CommitChangelistDialog2/93.0.1827.1080@93.0.1827.1080" timestamp="1617193534667" />
     <state x="632" y="185" key="FileChooserDialogImpl" timestamp="1618986217787">
