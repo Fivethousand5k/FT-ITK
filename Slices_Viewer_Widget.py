@@ -86,6 +86,8 @@ class Slice_Viewer_Widget(QWidget):
 
     def init_data(self):
         self.data = None
+        self.label_data=None   ##标签数组
+        self.show_label_tag=False   # determine whether to display the label onto the origin data
         self.screen_width, self.screen_height, self.slices_num = None, None, None
         self.slice_index = 0
         self.current_slice = None
@@ -213,7 +215,8 @@ class Slice_Viewer_Widget(QWidget):
             self.current_slice = self.data[:, self.slice_index, :]
         elif self.type is "coronal":
             self.current_slice = self.data[self.slice_index, :, :]
-        self.current_slice = array_preprocess(self.current_slice, -255, 255, type=self.type)
+        self.current_slice = array_preprocess(self.current_slice, -200,300, type=self.type)
+        # print(self.data.min(),self.data.max())
 
     def handle_SCPU_command(self, command: SCPU_Message_Box):
         x,y,slice_index=command.x,command.y,command.slice_index

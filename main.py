@@ -32,6 +32,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.main_layout.addWidget(self.Coronal_Viewer,1,0)
         self.main_layout.addWidget(self.VTK_Viewer,1,1)
         self.data=np.load("medical_files/0001.npy")
+        self.VTK_Viewer.load_nii()
         #self.main_layout.addWidget(self.Others_Viewer,1,1)
         self.Axial_Viewer.load_data_from_father(self.data)
         self.Sagittal_Viewer.load_data_from_father(self.data)
