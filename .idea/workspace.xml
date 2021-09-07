@@ -20,7 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb16d1e2-897e-4489-90e3-6aac265f2cd8" name="Default Changelist" comment="completed: 1.each slice view can correctly emit message now. &#10;2.add a VTK_Viewer_widget for further 3D visualization development. By now I just visualize a simple sphere and a cone as demo.&#10;3. waiting for new bugs to fix, I post it in wechat and look forward to co-contributors.">
+      <change beforePath="$PROJECT_DIR$/.idea/FT-ITK.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FT-ITK.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slices_Viewer_Widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slices_Viewer_Widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VTK_Viewer_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/VTK_Viewer_widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Display_widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,17 +54,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Eyes" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\programs\FT-ITK\medical_files\Label" />
+      <recent name="F:\programs\FT-ITK\medical_files\CT" />
+      <recent name="F:\programs\FT-ITK\medical_files" />
       <recent name="E:\python-tasks\FT-ITK\medical_files" />
       <recent name="E:\python-tasks\FT-ITK\Readme-images" />
-      <recent name="F:\programs\FT-ITK\Readme-images" />
-      <recent name="F:\programs\FT-ITK" />
-      <recent name="F:\programs\FT-ITK\GUI-resourses" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\python-tasks\FT-ITK\vtk-examples" />
@@ -66,7 +72,70 @@
       <recent name="F:\programs\FT-ITK\medical_files" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main_window">
+    <configuration name="Display_widget (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FT-ITK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Display_widget.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Switch_Button (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FT-ITK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Switch_Button.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Switch_Button" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FT-ITK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="F:\programs\FT-ITK\Switch_Button.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="FT-ITK" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -109,7 +178,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FT-ITK" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -121,70 +190,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="vtk-example7" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FT-ITK" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vtk-examples/vtk-example7.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="vtk-example8" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FT-ITK" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vtk-examples/vtk-example8.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="vtk-examples5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FT-ITK" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vtk-examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vtk-examples/vtk-examples5.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_window.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,23 +201,23 @@
     </configuration>
     <list>
       <item itemvalue="Python.Unnamed" />
-      <item itemvalue="Python.vtk-examples5" />
-      <item itemvalue="Python.vtk-example7" />
-      <item itemvalue="Python.vtk-example8" />
+      <item itemvalue="Python.Display_widget (1)" />
+      <item itemvalue="Python.Switch_Button (1)" />
+      <item itemvalue="Python.Switch_Button" />
       <item itemvalue="Python.VTK_Viewer_widget" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.main_window" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.main_window" />
+        <item itemvalue="Python.Switch_Button (1)" />
+        <item itemvalue="Python.Switch_Button" />
+        <item itemvalue="Python.Display_widget (1)" />
         <item itemvalue="Python.VTK_Viewer_widget" />
-        <item itemvalue="Python.vtk-example8" />
-        <item itemvalue="Python.vtk-example7" />
-        <item itemvalue="Python.vtk-examples5" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -273,13 +279,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Slices_Viewer_Widget completed!" />
@@ -304,75 +309,97 @@
     <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1619060896864" />
     <state x="202" y="18" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1617074165002" />
     <state x="285" y="19" key="CommitChangelistDialog2/93.0.1827.1080@93.0.1827.1080" timestamp="1617193534667" />
-    <state x="632" y="185" key="FileChooserDialogImpl" timestamp="1618986217787">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1278" height="440" key="DebuggerActiveHint" timestamp="1620473270152">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1278" height="440" key="DebuggerActiveHint/0.0.1280.760@0.0.1280.760" timestamp="1620473270152" />
+    <state x="421" y="135" key="FileChooserDialogImpl" timestamp="1623403152290">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="421" y="175" key="FileChooserDialogImpl/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1619090298051" />
     <state x="421" y="135" key="FileChooserDialogImpl/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616728304542" />
     <state x="421" y="135" key="FileChooserDialogImpl/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616835922555" />
+    <state x="421" y="135" key="FileChooserDialogImpl/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403152290" />
     <state x="632" y="185" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1618986217787" />
-    <state width="1510" height="258" key="GridCell.Tab.0.bottom" timestamp="1619021497003">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1260" height="304" key="GridCell.Tab.0.bottom" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1246" height="381" key="GridCell.Tab.0.bottom/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620464352650" />
     <state width="1260" height="236" key="GridCell.Tab.0.bottom/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.bottom/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345310" />
-    <state width="630" height="177" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
+    <state width="1260" height="304" key="GridCell.Tab.0.bottom/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="127" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1621134182185" />
     <state width="1510" height="258" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619021497003" />
     <state width="933" height="258" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1619011666179" />
     <state width="1801" height="271" key="GridCell.Tab.0.bottom/93.0.1827.1080@93.0.1827.1080" timestamp="1617193550379" />
-    <state width="1510" height="258" key="GridCell.Tab.0.center" timestamp="1619021497002">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1260" height="304" key="GridCell.Tab.0.center" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1246" height="381" key="GridCell.Tab.0.center/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620464352649" />
     <state width="1260" height="236" key="GridCell.Tab.0.center/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.center/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345309" />
-    <state width="630" height="177" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
+    <state width="1260" height="304" key="GridCell.Tab.0.center/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="127" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1621134182184" />
     <state width="1510" height="258" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619021497002" />
     <state width="933" height="258" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1619011666179" />
     <state width="1801" height="271" key="GridCell.Tab.0.center/93.0.1827.1080@93.0.1827.1080" timestamp="1617193550379" />
-    <state width="1510" height="258" key="GridCell.Tab.0.left" timestamp="1619021497002">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1260" height="304" key="GridCell.Tab.0.left" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1246" height="381" key="GridCell.Tab.0.left/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620464352649" />
     <state width="1260" height="236" key="GridCell.Tab.0.left/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.left/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345309" />
-    <state width="630" height="177" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
+    <state width="1260" height="304" key="GridCell.Tab.0.left/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="127" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1621134182184" />
     <state width="1510" height="258" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619021497002" />
     <state width="933" height="258" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1619011666179" />
     <state width="1801" height="271" key="GridCell.Tab.0.left/93.0.1827.1080@93.0.1827.1080" timestamp="1617193550379" />
-    <state width="1510" height="258" key="GridCell.Tab.0.right" timestamp="1619021497002">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1260" height="304" key="GridCell.Tab.0.right" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1246" height="381" key="GridCell.Tab.0.right/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620464352649" />
     <state width="1260" height="236" key="GridCell.Tab.0.right/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731617405" />
     <state width="630" height="190" key="GridCell.Tab.0.right/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616831345310" />
-    <state width="630" height="177" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1616852344184" />
+    <state width="1260" height="304" key="GridCell.Tab.0.right/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="127" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1621134182185" />
     <state width="1510" height="258" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619021497002" />
     <state width="933" height="258" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1619011666179" />
     <state width="1801" height="271" key="GridCell.Tab.0.right/93.0.1827.1080@93.0.1827.1080" timestamp="1617193550379" />
-    <state width="1894" height="333" key="GridCell.Tab.1.bottom" timestamp="1618980284418">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1260" height="304" key="GridCell.Tab.1.bottom" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1259" height="422" key="GridCell.Tab.1.bottom/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620461623197" />
     <state width="1260" height="236" key="GridCell.Tab.1.bottom/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.bottom/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="1260" height="304" key="GridCell.Tab.1.bottom/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="304" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1620473279049" />
     <state width="1894" height="333" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1618980284418" />
-    <state width="1894" height="333" key="GridCell.Tab.1.center" timestamp="1618980284418">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1260" height="304" key="GridCell.Tab.1.center" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1259" height="422" key="GridCell.Tab.1.center/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620461623197" />
     <state width="1260" height="236" key="GridCell.Tab.1.center/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.center/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="1260" height="304" key="GridCell.Tab.1.center/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="304" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1620473279049" />
     <state width="1894" height="333" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1618980284418" />
-    <state width="1894" height="333" key="GridCell.Tab.1.left" timestamp="1618980284417">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1260" height="304" key="GridCell.Tab.1.left" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1259" height="422" key="GridCell.Tab.1.left/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620461623197" />
     <state width="1260" height="236" key="GridCell.Tab.1.left/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.left/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="1260" height="304" key="GridCell.Tab.1.left/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="304" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1620473279049" />
     <state width="1894" height="333" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1618980284417" />
-    <state width="1894" height="333" key="GridCell.Tab.1.right" timestamp="1618980284418">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1260" height="304" key="GridCell.Tab.1.right" timestamp="1623403384849">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state width="1259" height="422" key="GridCell.Tab.1.right/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620461623197" />
     <state width="1260" height="236" key="GridCell.Tab.1.right/0.0.1280.760/-1600.183.800.560@0.0.1280.760" timestamp="1616731618630" />
     <state width="1260" height="282" key="GridCell.Tab.1.right/0.0.1280.760/-1600.183.800.600@0.0.1280.760" timestamp="1616748128562" />
-    <state width="630" height="282" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1616849181771" />
+    <state width="1260" height="304" key="GridCell.Tab.1.right/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1623403384849" />
+    <state width="1260" height="304" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1620473279049" />
     <state width="1894" height="333" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1618980284418" />
     <state x="601" y="167" key="MultipleFileMergeDialog" timestamp="1617033801664">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -394,19 +421,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="826" y="477" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1618975358332" />
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1618490947085">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="341" y="0" width="596" height="760" key="find.popup" timestamp="1621133617223">
+      <screen x="0" y="0" width="1280" height="760" />
     </state>
+    <state x="341" y="0" width="596" height="760" key="find.popup/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1621061117558" />
+    <state x="341" y="0" width="596" height="760" key="find.popup/0.0.1280.760@0.0.1280.760" timestamp="1621133617223" />
+    <state x="364" y="8" width="672" height="757" key="search.everywhere.popup" timestamp="1621065788729">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="359" y="5" width="672" height="979" key="search.everywhere.popup/-2560.0.1280.780/0.0.1280.984@0.0.1280.984" timestamp="1620463438543" />
+    <state x="364" y="8" width="672" height="757" key="search.everywhere.popup/0.0.1280.760/2560.0.1280.1024@0.0.1280.760" timestamp="1621065788729" />
+    <state x="362" y="6" width="672" height="757" key="search.everywhere.popup/0.0.1280.760@0.0.1280.760" timestamp="1620473476775" />
     <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1618490947085" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Slices_Viewer_Widget.py</url>
-          <line>299</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/vtk-examples/vtk-examples5.py</url>
           <line>1</line>
@@ -414,8 +444,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/VTK_Viewer_widget.py</url>
-          <line>13</line>
+          <line>32</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Slices_Viewer_Widget.py</url>
+          <line>112</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

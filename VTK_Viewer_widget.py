@@ -10,6 +10,25 @@ import vtk
 import SimpleITK as sitk
 import numpy as np
 import time
+
+
+def mkVtkIdList(it):
+    """
+    Makes a vtkIdList from a Python iterable. I'm kinda surprised that
+     this is necessary, since I assumed that this kind of thing would
+     have been built into the wrapper and happen transparently, but it
+     seems not.
+
+    :param it: A python iterable.
+    :return: A vtkIdList
+    """
+    vil = vtk.vtkIdList()
+    for i in it:
+        vil.InsertNextId(int(i))
+    return vil
+
+
+
 class VTK_Viewer_widget(QWidget):
     def __init__(self,parent=None):
         super(VTK_Viewer_widget, self).__init__(parent)
@@ -20,10 +39,70 @@ class VTK_Viewer_widget(QWidget):
         self.ren=vtk.vtkRenderer()
         self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
         self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
+        self.init_display()
 
-    def load_nii(self,path=None):
-        # path = '../vtk/nii_data_low/1_1.nii' #segmentation volume
-        path = 'medical_files/pancreas_001.nii.gz'  # segmentation volume
+
+    def init_display(self):
+
+        colors = vtk.vtkNamedColors()
+
+        # x = array of 8 3-tuples of float representing the vertices of a cube:
+        x = [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0),
+             (0.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 1.0, 1.0), (0.0, 1.0, 1.0)]
+
+        # pts = array of 6 4-tuples of vtkIdType (int) representing the faces
+        #     of the cube in terms of the above vertices
+        pts = [(0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4),
+               (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+
+        # We'll create the building blocks of polydata including data attributes.
+        cube = vtk.vtkPolyData()
+        points = vtk.vtkPoints()
+        polys = vtk.vtkCellArray()
+        scalars = vtk.vtkFloatArray()
+
+        # Load the point, cell, and data attributes.
+        for i, xi in enumerate(x):
+            points.InsertPoint(i, xi)
+        for pt in pts:
+            polys.InsertNextCell(mkVtkIdList(pt))
+        for i, _ in enumerate(x):
+            scalars.InsertTuple1(i, i)
+
+        # We now assign the pieces to the vtkPolyData.
+        cube.SetPoints(points)
+        cube.SetPolys(polys)
+        cube.GetPointData().SetScalars(scalars)
+
+        # Now we'll look at it.
+        cubeMapper = vtk.vtkPolyDataMapper()
+        cubeMapper.SetInputData(cube)
+        cubeMapper.SetScalarRange(cube.GetScalarRange())
+        cubeActor = vtk.vtkActor()
+        cubeActor.SetMapper(cubeMapper)
+
+        # The usual rendering stuff.
+        camera = vtk.vtkCamera()
+        camera.SetPosition(1, 1, 1)
+        camera.SetFocalPoint(0, 0, 0)
+
+        # renderer = vtk.vtkRenderer()
+        # renWin = vtk.vtkRenderWindow()
+        # renWin.AddRenderer(renderer)
+        #
+        # iren = vtk.vtkRenderWindowInteractor()
+        # iren.SetRenderWindow(renWin)
+
+        self.ren.AddActor(cubeActor)
+        self.ren.SetActiveCamera(camera)
+        self.ren.ResetCamera()
+        self.ren.SetBackground(colors.GetColor3d("Cornsilk"))
+        self.iren.Start()
+
+
+    def load_nii(self,path='F:\programs\FT-ITK\medical_files\pancreas_001.nii.gz'):
+        self.ren.ResetCamera()
+        self.iren.Initialize()
         ds = sitk.ReadImage(path)  # 读取nii数据的第一个函数sitk.ReadImage
         print('ds: ', ds)
         data = sitk.GetArrayFromImage(ds)  # 把itk.image转为array
@@ -43,16 +122,8 @@ class VTK_Viewer_widget(QWidget):
         origin = (0, 0, 0)
         img_arr.SetDataOrigin(origin)  # 设置vtk数据的坐标系原点
         img_arr.Update()
-        # srange = img_arr.GetOutput().GetScalarRange()
-
         print('spacing: ', spacing)
         print('srange: ', srange)
-        # ren = vtk.vtkRenderer()
-        # renWin = vtk.vtkRenderWindow()
-        # renWin.AddRenderer(ren)  # 把一个空的渲染器添加到一个空的窗口上
-        # renWin.AddRenderer(ren)
-        # iren = vtk.vtkRenderWindowInteractor()
-        # iren.SetRenderWindow(renWin)  # 把上面那个窗口加入交互操作
         self.iren.SetInteractorStyle(KeyPressInteractorStyle(parent=self.iren))  # 在交互操作里面添加这个自定义的操作例如up,down
         min = srange[0]
         max = srange[1]
@@ -145,76 +216,7 @@ class VTK_Viewer_widget(QWidget):
         self.ren.ResetCamera()
         self.iren.Initialize()
 
-    # # Create source
-    # source = vtk.vtkConeSource()
-    # source.SetCenter(0, 0, 0)
-    # source.SetRadius(0.1)
-    #
-    # source1 = vtk.vtkSphereSource()
-    # source1.SetCenter(0, 0, 0)
-    # source1.SetRadius(0.3)
-    #
-    # # Create a mapper
-    # mapper = vtk.vtkPolyDataMapper()
-    # mapper.SetInputConnection(source.GetOutputPort())
-    #
-    # mapper1 = vtk.vtkPolyDataMapper()
-    # mapper1.SetInputConnection(source1.GetOutputPort())
-    #
-    # # Create an actor
-    # actor = vtk.vtkActor()
-    # actor.SetMapper(mapper)
-    #
-    # actor1 = vtk.vtkActor()
-    # actor1.SetMapper(mapper1)
-    #
-    # self.ren.AddActor(actor)
-    # self.ren.AddActor(actor1)
-    #
-    # self.ren.ResetCamera()
-    #
-    # self.iren.Initialize()
 
-    #之前用的init方法
-    # def __init__(self,parent=None):
-    #     super(VTK_Viewer_widget, self).__init__(parent)
-    #     self.layout = QtWidgets.QGridLayout()
-    #     self.setLayout(self.layout)
-    #     self.vtkWidget = QVTKRenderWindowInteractor()
-    #     self.layout.addWidget(self.vtkWidget)
-    #     self.ren=vtk.vtkRenderer()
-    #     self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)
-    #     self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()
-    #
-    #     # Create source
-    #     source = vtk.vtkConeSource()
-    #     source.SetCenter(0, 0, 0)
-    #     source.SetRadius(0.1)
-    #
-    #     source1 = vtk.vtkSphereSource()
-    #     source1.SetCenter(0, 0, 0)
-    #     source1.SetRadius(0.3)
-    #
-    #     # Create a mapper
-    #     mapper = vtk.vtkPolyDataMapper()
-    #     mapper.SetInputConnection(source.GetOutputPort())
-    #
-    #     mapper1 = vtk.vtkPolyDataMapper()
-    #     mapper1.SetInputConnection(source1.GetOutputPort())
-    #
-    #     # Create an actor
-    #     actor = vtk.vtkActor()
-    #     actor.SetMapper(mapper)
-    #
-    #     actor1 = vtk.vtkActor()
-    #     actor1.SetMapper(mapper1)
-    #
-    #     self.ren.AddActor(actor)
-    #     self.ren.AddActor(actor1)
-    #
-    #     self.ren.ResetCamera()
-    #
-    #     self.iren.Initialize()
 class KeyPressInteractorStyle(vtk.vtkInteractorStyleTrackballCamera):
     gradtfun = vtk.vtkPiecewiseFunction()  # 梯度不透明度函数---放在gradtfun
     gradtfun.AddPoint(-1000, 9)
@@ -262,5 +264,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = VTK_Viewer_widget()
     window.show()
-    window.load_nii()
+    # window.init_display()
+    #window.load_nii(path="F:\programs\FT-ITK\medical_files\pancreas_001.nii.gz")
     sys.exit(app.exec_())

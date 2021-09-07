@@ -12,6 +12,7 @@ from tools import *
 from Message_Boxes import SCPU_Message_Box,Message_box
 
 
+
 class Slice_Viewer_Widget(QWidget):
     Fixed_image_size = 512
     output_signal = QtCore.pyqtSignal(Message_box)
@@ -56,7 +57,7 @@ class Slice_Viewer_Widget(QWidget):
         self.type = type
 
     def init_UI(self):
-        # self.setFixedSize(600,600)
+        #self.setFixedSize(600,600)
         self.pixmap = QPixmap("GUI-resourses/start-up.PNG")
         self.layout = QtWidgets.QGridLayout()
         self.label_screen = QtWidgets.QLabel(self)  # label used as a screen to display CT slices
@@ -91,6 +92,7 @@ class Slice_Viewer_Widget(QWidget):
         self.screen_width, self.screen_height, self.slices_num = None, None, None
         self.slice_index = 0
         self.current_slice = None
+        self.current_label = None
         self.old_line = (0, 0, 0, 0)
         self.mouse_x, self.mouse_y = 0, 0  # record the last coordinates of the mouse
 
@@ -105,12 +107,16 @@ class Slice_Viewer_Widget(QWidget):
         """
         if ".npy" in file_path:  # numpy_file
             data = np.load(file_path)
+        elif ".nii" in file_path:  #medical file
+            data,*_ =get_medical_image(file_path)
+            data=np.array(data)
+            data=data.transpose(1,2,0)
         self.data = data
         self.screen_width, self.screen_height, self.slices_num = self.get_screen_width_height_slicenum(data)
         self.check_data_validity()
         self.up_index, self.bottom_index = self.get_content_up_and_bottom_index()
         self.label_screen.resize(self.screen_height, self.screen_width)
-        self.label_screen.setFixedSize(self.screen_height, self.screen_width)
+        #self.label_screen.setFixedSize(self.screen_height, self.screen_width)
         self.slice_index = 0  # initialize the slice index with 0
         self.show_a_slice()
 
@@ -129,6 +135,33 @@ class Slice_Viewer_Widget(QWidget):
         # self.label_screen.resize(self.screen_height,  self.screen_width)
         # self.label_screen.setFixedSize(self.screen_height,  self.screen_width)
         self.slice_index = 0  # initialize the slice index with 0
+        self.show_a_slice()
+
+    def load_label_data_from_path(self, file_path: str):
+        """
+        the Slice_viewer reads the label array from file_path(a str). It currently supports .npy .nii
+        :param file_path: file_path should be a string
+        :return:
+        """
+        data=None
+        if ".npy" in file_path:  # numpy_file
+            data = np.load(file_path)
+        elif ".nii" in file_path:  #nii file
+            data,*_ =get_medical_image(file_path)
+            data = np.array(data)
+            data = data.transpose(1, 2, 0)
+        self.label_data = data
+        self.show_a_slice()
+
+    def load_label_data_from_father(self, label_data):
+        """
+        the Slice_viewer receives data directly from the father widget. By doing this, all the Slice_viewers could share
+         a variable with potentially large size(several hundred MB usually), thus help save the consumption of memory.
+        :param data:
+        :return:
+        """
+        self.label_data = label_data
+        self.show_label_tag=True
         self.show_a_slice()
 
     def get_screen_width_height_slicenum(self, data):
@@ -215,8 +248,19 @@ class Slice_Viewer_Widget(QWidget):
             self.current_slice = self.data[:, self.slice_index, :]
         elif self.type is "coronal":
             self.current_slice = self.data[self.slice_index, :, :]
-        self.current_slice = array_preprocess(self.current_slice, -200,300, type=self.type)
+        if self.label_data is not None:
+            if self.type is "axial":
+                self.current_label_slice = self.label_data[:, :, self.slice_index]
+            elif self.type is "sagittal":
+                self.current_label_slice = self.label_data[:, self.slice_index, :]
+            elif self.type is "coronal":
+                self.current_label_slice = self.label_data[self.slice_index, :, :]
+        if self.label_data is not None and self.show_label_tag:
+            self.current_slice = array_preprocess_with_label(self.current_slice,self.current_label_slice, -200, 300, type=self.type)
+        else:
+            self.current_slice = array_preprocess(self.current_slice, -200, 300, type=self.type)
         # print(self.data.min(),self.data.max())
+
 
     def handle_SCPU_command(self, command: SCPU_Message_Box):
         x,y,slice_index=command.x,command.y,command.slice_index
@@ -235,20 +279,21 @@ class Slice_Viewer_Widget(QWidget):
         :param event:
         :return:
         """
-        if event.angleDelta().y() > 0:  # mouse scrolling up
-            if self.type is not "coronal":
-                self.show_a_slice(mode="up")
-            else:
-                self.show_a_slice(mode="down")
-        else:  # mouse scrolling down
-            if self.type is not "coronal":
-                self.show_a_slice(mode="down")
-            else:
-                self.show_a_slice(mode="up")
-        message = Message_box(type=self.type, mouse_x=self.mouse_x, mouse_y=self.mouse_y - self.up_index,
-                              slice_index=self.slice_index)
-        self.output_signal.emit(message)
-        event.accept()
+        if self.data is not None:
+            if event.angleDelta().y() > 0:  # mouse scrolling up
+                if self.type is not "coronal":
+                    self.show_a_slice(mode="up")
+                else:
+                    self.show_a_slice(mode="down")
+            else:  # mouse scrolling down
+                if self.type is not "coronal":
+                    self.show_a_slice(mode="down")
+                else:
+                    self.show_a_slice(mode="up")
+            message = Message_box(type=self.type, mouse_x=self.mouse_x, mouse_y=self.mouse_y - self.up_index,
+                                  slice_index=self.slice_index)
+            self.output_signal.emit(message)
+            event.accept()
 
     def draw_lines(self, x, y, radius=30):
 
@@ -277,6 +322,7 @@ class Slice_Viewer_Widget(QWidget):
     #         #     message=Message_box(type=self.type,mouse_x=self.mouse_x,mouse_y=self.mouse_y-self.up_index,slice_index=self.slice_index)
     #         #     self.output_signal.emit(message)
            # self.mouse_y=self.up_index if event.y()<self.up_index elif event.y() <= self.bottom_index
+        if self.data is not None:
             if event.x()<0:
                 self.mouse_x=0
             elif event.x()>self.Fixed_image_size:
@@ -302,15 +348,20 @@ class Slice_Viewer_Widget(QWidget):
         # painter.setPen(QPen(Qt.red, 3))
         pass
 
+    def flash(self):
+        self.show_a_slice()
 
 
-
+    def clear_label(self):
+        self.label_data=None
+        self.show_label_tag=False
 
 if __name__ == '__main__':
-    data = np.load("medical_files/0001.npy")
     app = QtWidgets.QApplication(sys.argv)
-    gui = Slice_Viewer_Widget(type="sagittal")
-    # gui.load_data_from_path("medical_files/0001.npy")
-    gui.load_data_from_father(data)
+    gui = Slice_Viewer_Widget(type="axial")
+    gui.load_data_from_path("medical_files/CT/0001.npy")
+    gui.load_label_data_from_path("medical_files/Label/0001.npy")
+    # gui.load_data_from_path("medical_files/CT/pancreas_101.nii.gz")
+    # gui.load_label_data_from_path("medical_files/Label/pancreas_101.nii.gz")
     gui.show()
     sys.exit(app.exec_())
